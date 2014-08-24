@@ -32,26 +32,9 @@
       .solid .k-bottomright { animation: show-solid-piece 0.5s 3.55s forwards ease-out; }
       .outline {
         stroke: #444;
-        animation: show-solid 0.25s 3.5s reverse forwards ease-out;
       }
       .outline .k {
         opacity: 0;
-      }
-      @-webkit-keyframes fade-in {
-        0% {
-          opacity: 0;
-        }
-        100% {
-          opacity: 1;
-        }
-      }
-      @keyframes show-solid {
-        0% {
-          opacity: 0;
-        }
-        100% {
-          opacity: 1;
-        }
       }
       @keyframes show-solid-piece {
         0% {
@@ -121,19 +104,19 @@
     </section>
 
     <script>
-      showLine('.outline .top-arc');
-      showLine('.outline .bottom-arc');
+      showLine('.outline .top-arc', 0);
+      showLine('.outline .bottom-arc', 0);
       setTimeout(function() {
         var k_parts = document.querySelectorAll(".outline .k");
         for (var i = 0; i < k_parts.length; i++) {
             k_parts[i].style.opacity = 1;
         }
-        showLine('.outline .k-left');
-        showLine('.outline .k-topright');
-        showLine('.outline .k-bottomright');
-      }, 1500);
+        showLine('.outline .k-left', 400);
+        showLine('.outline .k-topright', 200);
+        showLine('.outline .k-bottomright', 300);
+      }, 1300);
 
-      function showLine(pathSelector) {
+      function showLine(pathSelector, delay) {
         var path = document.querySelector(pathSelector);
         var length = path.getTotalLength();
         // Clear any previous transition
@@ -146,9 +129,10 @@
         path.getBoundingClientRect();
         // Define our transition
         path.style.transition = path.style.WebkitTransition =
-          'stroke-dashoffset 2s ease-in-out';
-        // Go!
-        path.style.strokeDashoffset = '0';
+            'stroke-dashoffset 2s ease-in-out';
+        setTimeout(function() {
+          path.style.strokeDashoffset = '0';
+        }, delay);
       }
     </script>
   </body>
